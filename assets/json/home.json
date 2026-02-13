@@ -1,0 +1,127 @@
+{
+  "banner": [
+    {
+      "banner_id": "1",
+      "image": "https://i.ibb.co/QjD0NsS8/temp-banner-01.png",
+      "banner_title": "Be Fit",
+      "banner_sub_title": "Relax and rejuvenate with the traditional thai"
+    },
+    {
+      "banner_id": "2",
+      "image": "https://i.ibb.co/QjD0NsS8/temp-banner-01.png",
+      "banner_title": "Royal Peace Spa",
+      "banner_sub_title": "Relax and rejuvenate with the traditional thai"
+    },
+    {
+      "banner_id": "3",
+      "image": "https://i.ibb.co/QjD0NsS8/temp-banner-01.png",
+      "banner_title": "Peace-Relax",
+      "banner_sub_title": "Relax and rejuvenate with the traditional thai"
+    }
+  ],
+  "categories": [
+    {
+      "category_id": "1",
+      "image": "https://i.ibb.co/6cS8MnKR/temp-category.png",
+      "category_name": "Fitness"
+    },
+    {
+      "category_id": "2",
+      "image": "https://i.ibb.co/6cS8MnKR/temp-category.png",
+      "category_name": "Spa & Beauty"
+    },
+    {
+      "category_id": "3",
+      "image": "https://i.ibb.co/6cS8MnKR/temp-category.png",
+      "category_name": "Hair Cut"
+    },
+    {
+      "category_id": "4",
+      "image": "https://i.ibb.co/6cS8MnKR/temp-category.png",
+      "category_name": "Spa & Relaxation"
+    }
+  ],
+
+  "top_class": [
+    {
+      "id": "1",
+      "image": "https://media.istockphoto.com/id/1370782467/photo/shot-of-a-muscular-young-man-exercising-with-a-kettlebell-in-a-gym.jpg?s=612x612&w=0&k=20&c=1dnreYtIX9-4Nmcu8gB47b39Eu_DZd9DI7X0TpjjTdk=",
+      "is_favourite": false,
+      "title": "Weight Lift",
+      "sub_title": "Lady Fit",
+      "address": "Prahladnagar, Ahmedabad",
+      "distance": "1",
+      "rating": 2
+    },
+    {
+      "id": "2",
+      "image": "https://media.istockphoto.com/id/2075354173/photo/fitness-couple-is-doing-kettlebell-twist-in-a-gym-togehter.jpg?s=612x612&w=0&k=20&c=lfs1V1d0YB33tn72myi6FElJnylPJYYM9lW5ZhlnYqY=",
+      "is_favourite": false,
+      "title": "Dance",
+      "sub_title": "Lady Dance",
+      "address": "Setellite, Ahmedabad",
+      "distance": "5",
+      "rating": 5
+    },
+    {
+      "id": "3",
+      "image": "https://media.istockphoto.com/id/1849342295/photo/happy-athletic-couple-exercising-with-hand-weights-in-lunge-position-in-a-gym.jpg?s=612x612&w=0&k=20&c=uOM8_F2uFQPqvlAHXFwpc2TvqSDl8v9oZ5buN3eQvqo=",
+      "is_favourite": false,
+      "title": "Relax & Fit",
+      "sub_title": "Relax and rejuvenate with the traditional thai",
+      "address": "CTM, Ahmedabad",
+      "distance": "15",
+      "rating": 0
+    },
+    {
+      "id": "4",
+      "image": "https://suckhoedoisong.qltns.mediacdn.vn/thumb_w/640/324455921873985536/2025/4/18/16193-17449474813821357186690.jpg",
+      "is_favourite": false,
+      "title": "traditional Dance",
+      "sub_title": "traditional Lady Dance",
+      "address": "Gota, Ahmedabad",
+      "distance": "2",
+      "rating": 1
+    },
+    {
+      "id": "5",
+      "image": "https://i.ibb.co/QjD0NsS8/temp-banner-01.png",
+      "is_favourite": false,
+      "title": "Weight Lift",
+      "sub_title": "Lady Fit",
+      "address": "Prahladnagar, Ahmedabad",
+      "distance": "1",
+      "rating": 2
+    },
+    {
+      "id": "6",
+      "image": "https://suckhoedoisong.qltns.mediacdn.vn/thumb_w/640/324455921873985536/2025/4/18/16193-17449474813821357186690.jpg",
+      "is_favourite": false,
+      "title": "Dance",
+      "sub_title": "Lady Dance",
+      "address": "Setellite, Ahmedabad",
+      "distance": "5",
+      "rating": 5
+    },
+    {
+      "id": "7",
+      "image": "https://i.ibb.co/QjD0NsS8/temp-banner-01.png",
+      "is_favourite": false,
+      "title": "Relax & Fit",
+      "sub_title": "Relax and rejuvenate with the traditional thai",
+      "address": "CTM, Ahmedabad",
+      "distance": "15",
+      "rating": 0
+    },
+    {
+      "id": "8",
+      "image": "https://i.ibb.co/QjD0NsS8/temp-banner-01.png",
+      "is_favourite": false,
+      "title": "traditional Dance",
+      "sub_title": "traditional Lady Dance",
+      "address": "Gota, Ahmedabad",
+      "distance": "2",
+      "rating": 1
+    }
+  ]
+}
