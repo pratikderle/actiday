@@ -31,8 +31,9 @@ class _CommonCarouselState extends State<CommonCarousel> {
               });
             },
 
-            height: 150,
-            // aspectRatio: ,
+
+            height: 250,
+            // aspectRatio: 16/9,
             viewportFraction: 1,
             disableCenter: true,
             reverse: true,
@@ -51,7 +52,7 @@ class _CommonCarouselState extends State<CommonCarousel> {
               size: Size.fromRadius(4),
               activeColor: colorBlack,
               color: colorGrey,
-              activeSize: Size(40, 5),
+              activeSize: Size(50, 5),
               activeShape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
               ),

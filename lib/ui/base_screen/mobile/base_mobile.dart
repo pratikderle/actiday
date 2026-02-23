@@ -1,19 +1,57 @@
 import 'package:actiday/framework/controller/base_screen/base_controller.dart';
+import 'package:actiday/ui/auth/login_screen.dart';
+import 'package:actiday/ui/base_screen/base_screen.dart';
 import 'package:actiday/ui/error/error_screen.dart';
 import 'package:actiday/ui/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
 class BaseMobile extends StatefulWidget {
-  final PreferredSizeWidget? bottom;
-  const BaseMobile({super.key, this.bottom});
+  final int index;
+  final Function(int) onChanged;
+  final BaseController controller;
+
+  const BaseMobile({
+    super.key,
+    required this.index,
+    required this.onChanged,
+    required this.controller,
+  });
 
   @override
   State<BaseMobile> createState() => _BaseMobileState();
 }
 
 class _BaseMobileState extends State<BaseMobile> {
-  late BaseController baseController;
-  late int currIndex = 0;
+  void displayDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          icon: Icon(Icons.warning, size: 35, color: Colors.red,),
+          title: Text("Are you sure? Do you want to log out", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+          actions: [
+            OutlinedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Cancel"),
+            ),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  (Route<dynamic> route) => false,
+                );
+              },
+              child: Text("LogOut"),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +59,38 @@ class _BaseMobileState extends State<BaseMobile> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(
+      drawer: Drawer(
         backgroundColor: colorWhite,
-        leading: Padding(
-          padding: EdgeInsets.only(left: screenWidth * 0.03),
-          child: Icon(Icons.grid_view),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            IconButton(
+              onPressed: () {
+                // Scaffold.of(context).closeDrawer();
+                displayDialog();
+              },
+              icon: Icon(Icons.logout),
+            ),
+          ],
         ),
+      ),
+
+      // endDrawerEnableOpenDragGesture: true,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: Icon(Icons.grid_view),
+            );
+          },
+        ),
+        backgroundColor: colorWhite,
 
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -48,22 +112,19 @@ class _BaseMobileState extends State<BaseMobile> {
       body: SingleChildScrollView(
         child: Container(
           color: colorWhite,
-          child:
-              baseController.bottomNavigationList[currIndex].body
+          child: widget.controller.bottomNavigationList[widget.index].body,
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: baseController.bottomNavigationList.map((item) {
+        items: widget.controller.bottomNavigationList.map((item) {
           return BottomNavigationBarItem(icon: item.myIcon, label: item.label);
         }).toList(),
 
         onTap: (index) {
-          setState(() {
-            currIndex = index;
-          });
+          widget.onChanged(index);
         },
 
-        currentIndex: currIndex,
+        currentIndex: widget.index,
         selectedItemColor: colorBlack,
         unselectedItemColor: colorGrey,
       ),
@@ -73,6 +134,5 @@ class _BaseMobileState extends State<BaseMobile> {
   @override
   void initState() {
     super.initState();
-    baseController = BaseController();
   }
 }

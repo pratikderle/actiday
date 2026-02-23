@@ -1,24 +1,42 @@
 import 'package:actiday/framework/repositary/home/home.dart';
 import 'package:actiday/ui/utils/app_color.dart';
+import 'package:actiday/ui/utils/app_constants.dart';
 import 'package:actiday/ui/utils/widgets/common_bold_text.dart';
 import 'package:flutter/material.dart';
+import 'package:actiday/framework/controller/favourites/favourites_controller.dart';
 
 import '../../../framework/repositary/booking/booking.dart';
 
 class CommonGridItem extends StatefulWidget {
-  // String strImageSrc;
-  // String strTitle;
-  // String strSubtitleFirst;
-  // String strSubtitleSecond;
-  // CommonGridItem({required this.strImageSrc,required this.strTitle, required this.strSubtitleFirst, required this.strSubtitleSecond, super.key});
-  // final List<TopClass>? items;
-  final TopClass? modelTopClass;
-  final Past? modelPast;
+  final String? id;
+  final String? image;
+  bool? isFavourite;
+  final String? title;
+  final String? subTitle;
+  final String? address;
+  final String? distance;
+  final int? rating;
+  final String? date;
+  final int? credit;
+  final GestureTapCallback? onMyTap;
+  final GestureTapCallback? onButtonTap;
+  String? status;
 
-  const CommonGridItem({
-     required this.modelTopClass,
-     required this.modelPast,
+  CommonGridItem({
     super.key,
+    this.id,
+    required this.title,
+    required this.subTitle,
+    required this.image,
+    this.address,
+    this.isFavourite,
+    this.credit,
+    this.date,
+    this.distance,
+    this.rating,
+    this.onMyTap,
+    this.onButtonTap,
+    this.status
   });
 
   @override
@@ -26,34 +44,40 @@ class CommonGridItem extends StatefulWidget {
 }
 
 class _CommonGridItemState extends State<CommonGridItem> {
+  // bool _isFavorited = false;
 
+  // void toggleFavourite(){
+  //   setState(() {
+  //     wid = !_isFavorited;
+  //   });
+  // }
   @override
   void initState() {
-    setState(() {
-
-    });
+    setState(() {});
     super.initState();
   }
 
-  // String? dateConverter(String date){
-  //   if (date.isNotEmpty) {
-  //     int millisecondsEpoch = int.parse(date);
-  //     DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(millisecondsEpoch);
-  //
-  //     return dateTime.toString();
-  //   }
-  //   return '';
-  // }
+  String dateConverter(String milliseconds) {
+    String formattedDateTime = '';
+    try {
+      DateTime date = DateTime.fromMillisecondsSinceEpoch(
+        int.parse(milliseconds),
+      );
+
+      formattedDateTime =
+          "${date.year}-${date.month}-${date.day} ${date.hour == 0
+              ? '12'
+              : date.hour > 12
+              ? date.hour - 12
+              : date.hour}:${date.minute} ${date.hour > 12 ? 'PM' : 'AM'}";
+    } catch (e) {
+      return '';
+    }
+    return formattedDateTime;
+  }
+
   @override
   Widget build(BuildContext context) {
-
-    final dynamic model = widget.modelTopClass ?? widget.modelPast;
-    print("--->type ${model.runtimeType}");
-    // if (model is Past) {
-    //   print("--->"+
-    //     model is Past ? model.image : model.subTitle,
-    //   );
-    // }
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
@@ -68,21 +92,35 @@ class _CommonGridItemState extends State<CommonGridItem> {
               AspectRatio(
                 aspectRatio: 14 / 9,
                 child: Image.network(
-                  model.image ?? 'assets/images/ic_banner1.png',
+                  widget.image ?? 'assets/images/ic_banner1.png',
+                  width: double.infinity,
                   fit: BoxFit.cover,
                 ),
               ),
-              Positioned(
-                right: 5,
-                top: 5,
-                child: Container(
-                  height: 25,
-                  width: 25,
-                  decoration: BoxDecoration(
-                    color: colorWhite,
-                    shape: BoxShape.circle,
+              Visibility(
+                visible: (widget.isFavourite != null),
+                child: Positioned(
+                  right: 5,
+                  top: 5,
+                  child: InkWell(
+                    onTap: widget.onMyTap,
+
+                    child: Container(
+                      height: 25,
+                      width: 25,
+                      decoration: BoxDecoration(
+                        color: colorWhite,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.favorite,
+                        color: widget.isFavourite ?? false
+                            ? colorPink
+                            : colorGrey,
+                        size: 18,
+                      ),
+                    ),
                   ),
-                  child: Icon(Icons.favorite, color: Colors.pink, size: 18),
                 ),
               ),
             ],
@@ -93,27 +131,26 @@ class _CommonGridItemState extends State<CommonGridItem> {
               builder: (context, constraints) {
                 double titleSize = constraints.maxWidth > 150 ? 14 : 12;
                 double subtitleSize = constraints.maxWidth > 150 ? 14 : 12;
-                double ratingSize = constraints.maxWidth > 150 ? 14 : 12;
+                double ratingSize = constraints.maxWidth > 150 ? 12 : 10;
 
                 return Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            model.title ?? 'Error',
+                            widget.title ?? 'Error',
                             style: TextStyle(
                               fontSize: titleSize,
                               fontWeight: FontWeight.bold,
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),
+
                           Text(
-                            model is Past
-                                ? model.subTitle.join(' • ')
-                                : model.subTitle ?? "Lady Fit",
+                            widget.subTitle ?? '',
                             softWrap: true,
                             style: TextStyle(
                               fontSize: subtitleSize,
@@ -123,7 +160,7 @@ class _CommonGridItemState extends State<CommonGridItem> {
                           ),
 
                           Visibility(
-                            visible: model is TopClass,
+                            visible: widget.address != null,
                             child: Row(
                               children: [
                                 Icon(
@@ -133,15 +170,33 @@ class _CommonGridItemState extends State<CommonGridItem> {
                                 ),
 
                                 Flexible(
+                                  child: Visibility(
+                                    child: Text(
+                                      widget.address ?? '',
+                                      softWrap: true,
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: colorGrey,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Visibility(
+                            visible: widget.date != null,
+                            child: Row(
+                              children: [
+                                // Icon(Icons.eighteen_mp),
+                                SizedBox(height: 10),
+                                Flexible(
                                   child: Text(
-                                    model is Past
-                                        ? ''
-                                        : model.address ??
-                                              "Arabian Gulf st 2 km",
-                                    softWrap: true,
+                                    dateConverter(widget.date ?? ''),
                                     style: TextStyle(
-                                      fontSize: 12,
-                                      color: colorGrey,
+                                      fontSize: ratingSize,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -149,60 +204,60 @@ class _CommonGridItemState extends State<CommonGridItem> {
                               ],
                             ),
                           ),
+                        ],
+                      ),
+                    ),
+
+                    // Spacer(),
+                    Flexible(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
                           Visibility(
-                            visible: model is Past,
+                            visible: widget.rating != null,
                             child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                // Text(dateConverter(model.date) ?? '')
+                                Text(
+                                  (widget.rating.toString()),
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Icon(Icons.star, color: colorPink, size: 16),
+                              ],
+                            ),
+                          ),
+
+                          Visibility(
+                            visible: widget.credit != null,
+                            child: Column(
+                              children: [
+                                CommonBoldText(
+                                  label: "${widget.credit.toString()} Credit",
+                                  size: 13,
+                                ),
+                                OutlinedButton(
+                                  style: ButtonStyle(
+                                    // maximumSize: WidgetStatePropertyAll(Size(5, 2)),
+                                    side: WidgetStatePropertyAll(
+                                      BorderSide(color: colorPink),
+                                    ),
+                                  ),
+                                  onPressed: widget.onButtonTap,
+                                  child: Text(
+                                    widget.status ?? '',
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    Spacer(),
-
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Visibility(
-                          visible: model is TopClass,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                "4.5",
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Icon(Icons.star, color: colorPink, size: 16),
-                            ],
-                          ),
-                        ),
-
-                        Visibility(
-                          visible: model is Past,
-                          child: Column(
-                            children: [
-                              CommonBoldText(
-                                label: model is Past
-                                    ? "Credit ${model.credit}"
-                                    : '',
-                                size: 13,
-                              ),
-                              Spacer(),
-                              OutlinedButton(
-                                onPressed: () {},
-                                child: Text("Booked"),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
                     ),
                   ],
                 );

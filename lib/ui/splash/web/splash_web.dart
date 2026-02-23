@@ -1,3 +1,4 @@
+import 'package:actiday/ui/auth/login_screen.dart';
 import 'package:actiday/ui/splash/helper/common_splash_image.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class _SplashWebState extends State<SplashWeb> {
     super.initState();
 
     Future.delayed(Duration(seconds: 3),(){
-      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BaseScreen()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>LoginScreen()));
     });
   }
   @override

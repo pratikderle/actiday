@@ -1,6 +1,7 @@
 import 'package:actiday/ui/base_screen/base_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../auth/login_screen.dart';
 import '../helper/common_splash_image.dart';
 
 class SplashMobile extends StatefulWidget {
@@ -16,7 +17,7 @@ class _SplashMobileState extends State<SplashMobile> {
     super.initState();
 
     Future.delayed(Duration(seconds: 3),(){
-      Navigator.of(context).push(MaterialPageRoute(builder: (context)=>BaseScreen()));
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>LoginScreen()));
     });
   }
   @override

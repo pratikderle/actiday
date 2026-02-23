@@ -5,7 +5,7 @@ import 'package:flutter/rendering.dart';
 
 void main(){
   // debugPaintSizeEnabled = true;
-  runApp(MaterialApp(home: BaseScreen(),));
+  runApp(MaterialApp(home: SplashScreen(),));
 }
 
 // class MyCustomTab extends StatefulWidget {
